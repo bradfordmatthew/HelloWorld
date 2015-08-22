@@ -2,20 +2,6 @@ use std::io;
 mod moon;
 mod cowlib;
 
-#[test]
-fn test_case_1 () {
-    let mut bovines = cowlib::TheHerd::new();
-    chase_the_herd("0007", "7770".to_string(), &mut bovines);
-    assert!(bovines.cow_count() == 4 && bovines.bull_count() == 0);
-}
-
-#[test]
-fn test_case_2 () {
-    let mut bovines = cowlib::TheHerd::new();
-    chase_the_herd("9999", "1290".to_string(), &mut bovines);
-    assert!(bovines.cow_count() == 3 && bovines.bull_count() == 1);
-}
-
 fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
     let mut x_index     = 0;
     for x in guess.chars() {
@@ -80,4 +66,18 @@ fn main() {
 
         println!("Bulls: {}, Cows: {}.", bovines.bull_count(), bovines.cow_count())
     }
+}
+
+#[test]
+fn test_case_1 () {
+    let mut bovines = cowlib::TheHerd::new();
+    chase_the_herd("0007", "7770".to_string(), &mut bovines);
+    assert!(bovines.cow_count() == 4 && bovines.bull_count() == 0);
+}
+
+#[test]
+fn test_case_2 () {
+    let mut bovines = cowlib::TheHerd::new();
+    chase_the_herd("9999", "1290".to_string(), &mut bovines);
+    assert!(bovines.cow_count() == 3 && bovines.bull_count() == 1);
 }
