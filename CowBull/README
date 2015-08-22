@@ -12,3 +12,27 @@ User inputs 4 characters.
 cases
 1) guess: 0007     number: 7770  --4 cows?
 2) guess: 9999     number: 1290  --1 bull 3 cows?
+
+So new proj...(nameless at this point TODO: name...)
+console text adventure!
+Features - (probably actually more like learning goals than "features" heh)
+  *Ok this game might suck from a palyer standpoint...
+  *try and make it somewhat entertaining. However this is a programming
+    project. I will do games for game value later.
+
+  **Data IO Goals**
+    -Game objects to JSON saved in flat file
+    -Serialized Rust to JSON
+    -JSON to postgresql <- also...see if it can be deployed for game backend?
+  **libs for possible re-use**
+    -Random room generation
+    -Random items
+    -Play state (quick save/load)
+    -perliod noise impl macro? <- maybe...
+    -Look into SDL for some sound. Maybe look into tile based interface later.
+  **Rust learning goals**
+    -I know the OO approach to this, but I do not know the Rust approach.
+    -Implement some lifetimes!
+    -Do some async stuff! (Maybe object gen? Maybe there is a short collection of
+      possible loot items generated off the main loop thread...)
+      ---Do some involved stuff to make object generation slow...

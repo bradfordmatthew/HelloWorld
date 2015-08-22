@@ -21,6 +21,11 @@ fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
     }
 }
 
+fn game_without_a_name () -> bool {
+    //TODO: Stuff
+
+    true
+}
 fn main() {
     let mut stdin = io::stdin();
     let number = moon::horrid();
@@ -39,32 +44,41 @@ fn main() {
     );
     println!("___________________________________________");
     println!("Please enter 4 numerical characters!");
-    
+
     loop {
         let mut guess = &mut String::new();
-        stdin.read_line(guess);
+        stdin.read_line(guess);//TODO: How to turn off this warning...
         let guess = guess.trim();
 
         if guess == "exit"{
             break;
         }
 
-        if guess == number {
-            println!("You win!!!!! You guessed: {}", number);
-            std::thread::sleep_ms(3000);
-            break;
+        if guess != "doode!" {
+            if guess == number {
+                println!("You win!!!!! You guessed: {}", number);
+                std::thread::sleep_ms(3000);
+                break;
+            }
+
+            if guess.len() != 4 {
+                println!("Please enter a 4 digit numerical string. {}", guess.len());
+                continue;
+            }
+
+            let mut bovines = cowlib::TheHerd::new();
+
+            chase_the_herd(guess, number.to_string(), &mut bovines);
+
+            println!("Bulls: {}, Cows: {}.", bovines.bull_count(), bovines.cow_count())
         }
-
-        if guess.len() != 4 {
-            println!("Please enter a 4 digit numerical string. {}", guess.len());
-            continue;
+        else {
+            //individual game loops and a governing loop? Is that a thing?
+            if game_without_a_name() {
+                println!("Woo you played the other game and won!");
+                break;
+            }
         }
-
-        let mut bovines = cowlib::TheHerd::new();
-
-        chase_the_herd(guess, number.to_string(), &mut bovines);
-
-        println!("Bulls: {}, Cows: {}.", bovines.bull_count(), bovines.cow_count())
     }
 }
 
