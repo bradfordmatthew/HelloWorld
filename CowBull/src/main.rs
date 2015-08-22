@@ -2,6 +2,39 @@ use std::io;
 mod moon;
 mod cowlib;
 
+#[test]
+fn test_case_1 () {
+    let mut bovines = cowlib::TheHerd::new();
+    chase_the_herd("0007", "7770".to_string(), &mut bovines);
+    assert!(bovines.cow_count() == 4 && bovines.bull_count() == 0);
+}
+
+#[test]
+fn test_case_2 () {
+    let mut bovines = cowlib::TheHerd::new();
+    chase_the_herd("9999", "1290".to_string(), &mut bovines);
+    assert!(bovines.cow_count() == 3 && bovines.bull_count() == 1);
+}
+
+fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
+    let mut x_index     = 0;
+    for x in guess.chars() {
+        let mut i_index = 0;
+        for i in number.chars() {
+            if x == i {
+                if x_index == i_index {
+                    bovines.herd[x_index].set_bull(x_index, x);
+                }
+                else{
+                    bovines.herd[x_index].set_cow();
+                }
+            }
+            i_index = i_index + 1;
+        }
+        x_index = x_index + 1;
+    }
+}
+
 fn main() {
     let mut stdin = io::stdin();
     let number = moon::horrid();
@@ -20,6 +53,7 @@ fn main() {
     );
     println!("___________________________________________");
     println!("Please enter 4 numerical characters!");
+    
     loop {
         let mut guess = &mut String::new();
         stdin.read_line(guess);
@@ -40,24 +74,9 @@ fn main() {
             continue;
         }
 
-        let mut bovines     = cowlib::TheHerd::new();
-        let mut x_index     = 0;
+        let mut bovines = cowlib::TheHerd::new();
 
-        for x in guess.chars() {
-            let mut i_index = 0;
-            for i in number.chars() {
-                if x == i {
-                    if x_index == i_index {
-                        bovines.herd[x_index].set_bull(x_index, x);
-                    }
-                    else{
-                        bovines.herd[x_index].set_cow();
-                    }
-                }
-                i_index = i_index + 1;
-            }
-            x_index = x_index + 1;
-        }
+        chase_the_herd(guess, number.to_string(), &mut bovines);
 
         println!("Bulls: {}, Cows: {}.", bovines.bull_count(), bovines.cow_count())
     }

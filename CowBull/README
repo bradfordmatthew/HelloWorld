@@ -1,0 +1,14 @@
+So CowBull....
+
+I actually have never been asked to write this one. I have done fizz buzz in several interviews and thought
+this sounded mildly entertaining and a good program to do for my first rust program.
+
+*my make-believe requirements*
+Guess a 4 digit random number between 1,000 and 9,999.
+Right number and index is a bull.
+Right number and wrong index is a cow.
+User inputs 4 characters.
+
+cases
+1) guess: 0007     number: 7770  --4 cows?
+2) guess: 9999     number: 1290  --1 bull 3 cows?
