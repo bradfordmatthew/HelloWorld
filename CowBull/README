@@ -36,3 +36,4 @@ Features - (probably actually more like learning goals than "features" heh)
     -Do some async stuff! (Maybe object gen? Maybe there is a short collection of
       possible loot items generated off the main loop thread...)
       ---Do some involved stuff to make object generation slow...
+    -Traits!! Use as abstract classes...or interfaces? Eh lets play. (check)

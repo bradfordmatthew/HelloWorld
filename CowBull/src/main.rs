@@ -22,14 +22,20 @@ fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
     }
 }
 
+fn printstuff<T: gamelib::actinator::Actinator>(t: &T) {
+    println!("{}, by: {}",t.action(), t.name());
+}
+
 fn game_without_a_name () -> bool {
     //TODO: Stuff
      //heh local libs cool...
     //let monster = ::gamelib::Monster { name: "Mr. Monster" };
-    let humaniod: gamelib::Humaniod = gamelib::Humaniod::new("Mr. Bob");
     let human2: gamelib::Humaniod = gamelib::Humaniod::new("test doode!");
-    let beast: gamelib::Beast = gamelib::Beast::new("The Beast!");
-    //cannot at this point see beast.action(). It is not in scope....bleh
+    let beast: gamelib::beast::Beast = gamelib::beast::Beast::new("The Beast!");
+
+    //let mon_vec = vec!
+    printstuff(&human2);
+    printstuff(&beast);
 
     true
 }
