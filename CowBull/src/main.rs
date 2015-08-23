@@ -1,6 +1,7 @@
 use std::io;
 mod moon;
 mod cowlib;
+mod gamelib;
 
 fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
     let mut x_index     = 0;
@@ -23,6 +24,12 @@ fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
 
 fn game_without_a_name () -> bool {
     //TODO: Stuff
+     //heh local libs cool...
+    //let monster = ::gamelib::Monster { name: "Mr. Monster" };
+    let humaniod: gamelib::Humaniod = gamelib::Humaniod::new("Mr. Bob");
+    let human2: gamelib::Humaniod = gamelib::Humaniod::new("test doode!");
+    let beast: gamelib::Beast = gamelib::Beast::new("The Beast!");
+    //cannot at this point see beast.action(). It is not in scope....bleh
 
     true
 }

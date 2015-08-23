@@ -1,3 +1,5 @@
+
+/*
 struct Parent {...}
 struct Child { parent: Parent, ... }
 
@@ -25,3 +27,4 @@ impl ParentTrait for Child {
     fn get_parent<'a>(&'a self) -> &'a Parent { &self.parent }
     get_parent_mut<'a>(&'a mut self) -> &'a mut Parent { &mut self.parent }
 }
+*/
