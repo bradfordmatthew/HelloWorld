@@ -5,7 +5,7 @@ pub struct Beast {
 }
 
 impl Beast {
-    pub fn new (name: &'static str) -> Beast {
+    fn new (name: &'static str) -> Beast {
         Beast { name: name }
     }
 }

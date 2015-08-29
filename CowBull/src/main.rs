@@ -3,6 +3,32 @@ mod moon;
 mod cowlib;
 mod gamelib;
 
+//nameless game
+fn printstuff<T: gamelib::actinator::Actinator>(t: &T) {
+    println!("{}, by: {}",t.action(), t.name());
+}
+
+fn game_without_a_name () -> bool {
+    //TODO: Stuff
+     //heh local libs cool...
+    //let monster = ::gamelib::Monster { name: "Mr. Monster" };
+    let human2: gamelib::Humaniod       = gamelib::actinator::Actinator::new("test doode!");
+    let beast: gamelib::beast::Beast    = gamelib::actinator::Actinator::new("The Beast!");
+    let weap1: gamelib::object::Weapon   = gamelib::object::GameObject::new("weapon 1");
+    let weap2                            = gamelib::object::Weapon::new("weapon 2", 1000);
+    //how about a vec dependent on the actinator implementation of the class...
+    //vec!{&beast as &gamelib::actinator::Actinator, &human2 as &gamelib::actinator::Actinator};
+
+    //let mon_vec = vec!
+    printstuff(&human2);
+    printstuff(&beast);
+    println!("object name {} and value {}", weap1.name, weap1.value());
+    println!("Object name {} and value {}.", weap2.name, weap2.value());
+
+    true
+}
+
+//cowbull
 fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
     let mut x_index     = 0;
     for x in guess.chars() {
@@ -22,23 +48,6 @@ fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
     }
 }
 
-fn printstuff<T: gamelib::actinator::Actinator>(t: &T) {
-    println!("{}, by: {}",t.action(), t.name());
-}
-
-fn game_without_a_name () -> bool {
-    //TODO: Stuff
-     //heh local libs cool...
-    //let monster = ::gamelib::Monster { name: "Mr. Monster" };
-    let human2: gamelib::Humaniod = gamelib::Humaniod::new("test doode!");
-    let beast: gamelib::beast::Beast = gamelib::beast::Beast::new("The Beast!");
-
-    //let mon_vec = vec!
-    printstuff(&human2);
-    printstuff(&beast);
-
-    true
-}
 fn main() {
     let mut stdin = io::stdin();
     let number = moon::horrid();
@@ -53,7 +62,7 @@ fn main() {
     ,"1000 and 9999. You will be given the clue of cows or"
     ,"bulls. A cow is a correct number in the wrong position."
     ,"A bull is the right number in the right position."
-    ,"\r\n\t\t**exit to quit the game.**"
+    ,"\r\n\t\t**Type exit to quit the game.**"
     );
     println!("___________________________________________");
     println!("Please enter 4 numerical characters!");
@@ -95,6 +104,7 @@ fn main() {
     }
 }
 
+//Game play tests
 #[test]
 fn test_case_1 () {
     let mut bovines = cowlib::TheHerd::new();
