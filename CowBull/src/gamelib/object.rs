@@ -36,6 +36,7 @@ pub trait GameObject {
     fn use_obj(&self) -> &'static str {
         "You weapon does 10 damage."
     }
+
 }
 
 pub struct Weapon {
@@ -67,4 +68,5 @@ impl GameObject for Weapon {
     fn name (&self) -> &'static str {
         self.name
     }
+
 }

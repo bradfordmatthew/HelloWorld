@@ -12,17 +12,18 @@ fn game_without_a_name () -> bool {
     //TODO: Stuff
      //heh local libs cool...
     //let monster = ::gamelib::Monster { name: "Mr. Monster" };
-    let human2: gamelib::Humaniod       = gamelib::actinator::Actinator::new("test doode!");
-    let beast: gamelib::beast::Beast    = gamelib::actinator::Actinator::new("The Beast!");
-    let weap1: gamelib::object::Weapon   = gamelib::object::GameObject::new("weapon 1");
-    let weap2                            = gamelib::object::Weapon::new("weapon 2", 1000);
+    let mut     human2: gamelib::Humaniod           = gamelib::actinator::Actinator::new("test doode!");
+    let         beast: gamelib::beast::Beast        = gamelib::actinator::Actinator::new("The Beast!");
+    let         weap1: gamelib::object::Weapon      = gamelib::object::GameObject::new("weapon 1");
+    let         weap2                               = gamelib::object::Weapon::new("weapon 2", 1000);
     //how about a vec dependent on the actinator implementation of the class...
     //vec!{&beast as &gamelib::actinator::Actinator, &human2 as &gamelib::actinator::Actinator};
+    human2.add_to_pack(weap1);
 
     //let mon_vec = vec!
     printstuff(&human2);
     printstuff(&beast);
-    println!("object name {} and value {}", weap1.name, weap1.value());
+    println!("object name {} and value {}", human2.pack[0].name, human2.pack[0].value());
     println!("Object name {} and value {}.", weap2.name, weap2.value());
 
     true
