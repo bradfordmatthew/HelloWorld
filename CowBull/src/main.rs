@@ -2,32 +2,7 @@ use std::io;
 mod moon;
 mod cowlib;
 mod gamelib;
-
-//nameless game
-fn printstuff<T: gamelib::actinator::Actinator>(t: &T) {
-    println!("{}, by: {}",t.action(), t.name());
-}
-
-fn game_without_a_name () -> bool {
-    //TODO: Stuff
-     //heh local libs cool...
-    //let monster = ::gamelib::Monster { name: "Mr. Monster" };
-    let mut     human2: gamelib::Humaniod           = gamelib::actinator::Actinator::new("test doode!");
-    let         beast: gamelib::beast::Beast        = gamelib::actinator::Actinator::new("The Beast!");
-    let         weap1: gamelib::object::Weapon      = gamelib::object::GameObject::new("weapon 1");
-    let         weap2                               = gamelib::object::Weapon::new("weapon 2", 1000);
-    //how about a vec dependent on the actinator implementation of the class...
-    //vec!{&beast as &gamelib::actinator::Actinator, &human2 as &gamelib::actinator::Actinator};
-    human2.add_to_pack(weap1);
-
-    //let mon_vec = vec!
-    printstuff(&human2);
-    printstuff(&beast);
-    println!("object name {} and value {}", human2.pack[0].name, human2.pack[0].value());
-    println!("Object name {} and value {}.", weap2.name, weap2.value());
-
-    true
-}
+mod second;
 
 //cowbull
 fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
@@ -51,18 +26,14 @@ fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
 
 fn main() {
     let mut stdin = io::stdin();
-    let number = moon::horrid();
+    let number = moon::random_num(1000, 10000);
     println!("-------------------------------------------");
     println!("\t     Welcome to the game cow bull!!!\r\n
-    {}\r
-    {}\r
-    {}\r
-    {}\r
-    {}\r"
+    {}\r\n {}\r\n {}\r\n {}\r\n {}\r"
     ,"The object of this game is to guess a number between"
-    ,"1000 and 9999. You will be given the clue of cows or"
-    ,"bulls. A cow is a correct number in the wrong position."
-    ,"A bull is the right number in the right position."
+    ,"   1000 and 9999. You will be given the clue of cows or"
+    ,"  bulls. A cow is a correct number in the wrong position."
+    ,"     A bull is the right number in the right position."
     ,"\r\n\t\t**Type exit to quit the game.**"
     );
     println!("___________________________________________");
@@ -97,7 +68,7 @@ fn main() {
         }
         else {
             //individual game loops and a governing loop? Is that a thing?
-            if game_without_a_name() {
+            if second::game_without_a_name() {
                 println!("Woo you played the other game and won!");
                 break;
             }

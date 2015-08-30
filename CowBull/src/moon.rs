@@ -1,11 +1,12 @@
 extern crate rand;
 
-pub fn horrid () -> String {
-    use self::rand::Rng;
-    self::rand::thread_rng().gen_range(1000, 10000).to_string()
+//low inclusive - high exclusive returns a string
+pub fn random_num (low: i32, high:i32) -> String {
+    use self::rand::Rng;//woo! local use of crates...
+    self::rand::thread_rng().gen_range(low, high).to_string()
 }
 
 #[test]
-pub fn test_horrid () {
-    assert!(horrid().len() == 4);
+pub fn test_random_num () {
+    assert!(random_num(1000,10000).len() == 4);
 }
