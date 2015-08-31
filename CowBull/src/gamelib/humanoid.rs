@@ -1,12 +1,12 @@
 use gamelib::actinator;
 use gamelib::object;
 
-pub struct Humanoid {
+pub struct Humanoid<'a> {
     pub name: &'static str,
-    pub pack: Vec<object::Weapon>,
+    pub pack: Vec<&'a object::GameObject<'a>>,
 }
 
-impl Humanoid {
+impl<'a> Humanoid<'a> {
     pub fn new (name: &'static str ) -> Humanoid {
         Humanoid {
             name: name ,
@@ -14,12 +14,12 @@ impl Humanoid {
         }
     }
 
-    pub fn add_to_pack (&mut self, w: object::Weapon) {
+    pub fn add_to_pack (&mut self, w: &'a object::GameObject) {
         self.pack.push(w);
     }
 }
 
-impl actinator::Actinator for Humanoid {
+impl<'a> actinator::Actinator for Humanoid<'a> {
     fn new (name: &'static str ) -> Humanoid {
         Humanoid {
             name: name,

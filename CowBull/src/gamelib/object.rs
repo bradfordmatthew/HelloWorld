@@ -28,45 +28,105 @@ impl ParentTrait for Child {
     get_parent_mut<'a>(&'a mut self) -> &'a mut Parent { &mut self.parent }
 }
 */
-pub trait GameObject {
-    fn new(name: &'static str) -> Self;
+pub struct GameObject<'a>{
+    pub name: &'a str,
+    pub value: i32,
+}
+pub struct Weapon<'a> {
+    parent: GameObject<'a>
+}
 
-    fn name(&self) -> &'static str;
-
-    fn use_obj(&self) -> &'static str {
-        "You weapon does 10 damage."
+trait GameObjectTrait<'a> {
+    fn get_parent<'b>(&'a self) -> &GameObject<'a>;
+    //fn get_parent_mut<'a>(&'a mut self) -> &'a mut GameObject;
+    //Self may make this unsafe object...
+    fn name(&'a self) -> &'a str { "bleh" }
+    fn value(self) -> i32;
+    fn new (name: &'a str, value: i32) -> GameObject<'a> {
+        GameObject {
+            name: name,
+            value: value,
+        }
     }
+    fn use_obj<'b>(&self) -> &'b str {
+        "Your object does 1 damage."
+    }
+}
+
+impl<'a,'b> GameObjectTrait<'b> for GameObject<'a> {
+    fn get_parent(&'b self) -> &GameObject<'b> { self }
+    //fn get_parent_mut<'a>(&'a mut self) -> &'a mut GameObject { &mut self }
+    //fn name(&'b self) -> &'b str { self.name }
+    fn value(self) -> i32 { self.value }
+    fn new(name: &'b str, value: i32 ) -> GameObject<'b> {
+         GameObject {
+            name:  name,
+            value: value,
+        }
+    }
+}
+
+trait WeaponTrait<'a>: GameObjectTrait<'a> {
+    fn get_child(&'a self) -> &'a Weapon;
+    // Other child methods...
+}
+
+impl<'a, 'b> WeaponTrait<'b> for Weapon<'a> {
+    fn get_child(&'b self) -> &'b Weapon { self }
+}
+
+impl<'a,'b> GameObjectTrait<'b> for Weapon<'a> {
+    fn get_parent(&'b self) -> &GameObject<'b> { &self.parent }
+    //fn get_parent_mut<'a>(&'a mut self) -> &'a mut GameObject { &mut self.parent }
+    //fn name(&'b self) -> &'b str { self.parent.name }
+    fn value(self) -> i32 { self.parent.value }
 
 }
 
+impl<'a> Weapon<'a> {
+    pub fn new (name: &str, value: i32) -> Weapon {
+        Weapon {
+            parent: GameObject {
+                name: name,
+                value: value,
+            }
+        }
+    }
+}
+
+/*
 pub struct Weapon {
     pub name:           &'static str,
     pub base_value:     i32,
 }
 
 impl Weapon {
-    pub fn new (name: &'static str, base_value: i32) -> Weapon {
-        Weapon {
+    pub fn new (name: &'static str, base_value: i32) -> &Weapon {
+        &Weapon {
              name:          name,
              base_value:    base_value,
          }
     }
 
-    pub fn value (&self) -> i32 {
-        self.base_value * 10
+    pub fn value (&self) -> &i32 {
+        &(self.base_value * 10)
     }
 }
 
 impl GameObject for Weapon {
-    fn new (name: &'static str) -> Weapon {
-        Weapon {
+    pub fn new (name: &'static str) -> &Weapon {
+        &Weapon {
              name:          name,
              base_value:    100,
          }
     }
 
-    fn name (&self) -> &'static str {
+    pub fn name(&self) -> &'static str {
         self.name
     }
 
+    pub fn value (&self) -> &i32 {
+        &(self.base_value * 10)
+    }
 }
+*/
