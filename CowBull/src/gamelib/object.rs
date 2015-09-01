@@ -36,19 +36,11 @@ pub struct Weapon<'a> {
     parent: GameObject<'a>
 }
 
-trait GameObjectTrait<'a> {
+pub trait GameObjectTrait<'a> {
     fn get_parent<'b>(&'a self) -> &GameObject<'a>;
-    //fn get_parent_mut<'a>(&'a mut self) -> &'a mut GameObject;
-    //Self may make this unsafe object...
     fn name(&'a self) -> &'a str { "bleh" }
-    fn value(self) -> i32;
-    fn new (name: &'a str, value: i32) -> GameObject<'a> {
-        GameObject {
-            name: name,
-            value: value,
-        }
-    }
-    fn use_obj<'b>(&self) -> &'b str {
+    fn value(&'a self) -> i32;
+    fn use_obj<'b>(&'a self) -> &'b str {
         "Your object does 1 damage."
     }
 }
@@ -57,13 +49,7 @@ impl<'a,'b> GameObjectTrait<'b> for GameObject<'a> {
     fn get_parent(&'b self) -> &GameObject<'b> { self }
     //fn get_parent_mut<'a>(&'a mut self) -> &'a mut GameObject { &mut self }
     //fn name(&'b self) -> &'b str { self.name }
-    fn value(self) -> i32 { self.value }
-    fn new(name: &'b str, value: i32 ) -> GameObject<'b> {
-         GameObject {
-            name:  name,
-            value: value,
-        }
-    }
+    fn value(&'b self) -> i32 { self.value }
 }
 
 trait WeaponTrait<'a>: GameObjectTrait<'a> {
@@ -79,7 +65,7 @@ impl<'a,'b> GameObjectTrait<'b> for Weapon<'a> {
     fn get_parent(&'b self) -> &GameObject<'b> { &self.parent }
     //fn get_parent_mut<'a>(&'a mut self) -> &'a mut GameObject { &mut self.parent }
     //fn name(&'b self) -> &'b str { self.parent.name }
-    fn value(self) -> i32 { self.parent.value }
+    fn value(&'b self) -> i32 { self.parent.value }
 
 }
 
@@ -95,6 +81,73 @@ impl<'a> Weapon<'a> {
 }
 
 /*
+
+trait Foo {}
+
+struct MyFoo;
+
+impl Foo for MyFoo {}
+
+struct Bar<'a> {
+    foo: Box<Foo + 'a>,
+}
+
+impl<'a> Bar<'a> {
+    fn new(the_foo: Box<Foo + 'a>) -> Bar<'a> {
+        Bar { foo: the_foo }
+    }
+
+    fn get_foo(&'a self) -> &'a Foo {
+        &*self.foo
+    }
+}
+
+fn main() {
+    let mybar = Bar::new(box MyFoo as Box<Foo>);
+}
+
+---------------------------------------------------
+
+trait Foo {}
+
+struct MyFoo;
+
+impl Foo for MyFoo {}
+
+struct Bar<'a> {
+    foo: &'a (Foo + 'a),
+}
+
+impl<'a> Bar<'a> {
+    fn new(the_foo: &'a Foo) -> Bar<'a> {
+        Bar { foo: the_foo }
+    }
+
+    fn get_foo(&'a self) -> &'a Foo {
+        self.foo
+    }
+}
+
+fn main() {
+    let myfoo = MyFoo;
+    let mybar = Bar::new(&myfoo as &Foo);
+}
+---------------------------------------------
+trait Foo { }
+
+impl<'a> Foo for &'a str { }
+
+impl<'a> Foo for Vec<&'a str> { }
+
+fn main() {
+    let s = "hello";
+    let v = vec!["foo", "bar"];
+
+    let list = vec![Box::new(s) as Box<Foo>, Box::new(v) as Box<Foo>];
+}
+
+--------------------------------------------
+
 pub struct Weapon {
     pub name:           &'static str,
     pub base_value:     i32,

@@ -1,12 +1,12 @@
 //trait seem nice, but I cannot seem to get them to work from a library. Methods from a trait
 //are never in scope when delcared in library...
-pub trait Actinator {
+pub trait Actinator<'a> {
     //woo we can make things!
-    fn new(name: &'static str) -> Self;
+    fn new(name: &'a str) -> Self;
 
-    fn name(&self) -> &'static str;
+    fn name(&self) -> &'a str;
 
-    fn action(&self)-> &'static str {
+    fn action(&self)-> &'a str {
         "default stuff from actinator"
     }
     /*
