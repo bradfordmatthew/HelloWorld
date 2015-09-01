@@ -32,9 +32,6 @@ pub struct GameObject<'a>{
     pub name: &'a str,
     pub value: i32,
 }
-pub struct Weapon<'a> {
-    parent: GameObject<'a>
-}
 
 pub trait GameObjectTrait<'a> {
     fn get_parent<'b>(&'a self) -> &GameObject<'a>;
@@ -52,33 +49,9 @@ impl<'a,'b> GameObjectTrait<'b> for GameObject<'a> {
     fn value(&'b self) -> i32 { self.value }
 }
 
-trait WeaponTrait<'a>: GameObjectTrait<'a> {
-    fn get_child(&'a self) -> &'a Weapon;
-    // Other child methods...
-}
 
-impl<'a, 'b> WeaponTrait<'b> for Weapon<'a> {
-    fn get_child(&'b self) -> &'b Weapon { self }
-}
 
-impl<'a,'b> GameObjectTrait<'b> for Weapon<'a> {
-    fn get_parent(&'b self) -> &GameObject<'b> { &self.parent }
-    //fn get_parent_mut<'a>(&'a mut self) -> &'a mut GameObject { &mut self.parent }
-    //fn name(&'b self) -> &'b str { self.parent.name }
-    fn value(&'b self) -> i32 { self.parent.value }
 
-}
-
-impl<'a> Weapon<'a> {
-    pub fn new (name: &str, value: i32) -> Weapon {
-        Weapon {
-            parent: GameObject {
-                name: name,
-                value: value,
-            }
-        }
-    }
-}
 
 /*
 

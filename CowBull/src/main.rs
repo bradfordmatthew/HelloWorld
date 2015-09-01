@@ -40,29 +40,29 @@ fn main() {
     println!("Please enter 4 numerical characters!");
 
     loop {
-        let mut guess = &mut String::new();
+        let guess = &mut String::new();
         stdin.read_line(guess);//TODO: How to turn off this warning...
-        let guess = guess.trim();
+        let guess_trim = guess.trim();//but it is used!
 
-        if guess == "exit"{
+        if guess_trim == "exit"{
             break;
         }
 
-        if guess != "doode!" {
-            if guess == number {
+        if guess_trim != "doode!" {
+            if guess_trim == number {
                 println!("You win!!!!! You guessed: {}", number);
                 std::thread::sleep_ms(3000);
                 break;
             }
 
-            if guess.len() != 4 {
-                println!("Please enter a 4 digit numerical string. {}", guess.len());
+            if guess_trim.len() != 4 {
+                println!("Please enter a 4 digit numerical string.");
                 continue;
             }
             //test and see if this uploads :)
             let mut bovines = cowlib::TheHerd::new();
 
-            chase_the_herd(guess, number.to_string(), &mut bovines);
+            chase_the_herd(guess_trim, number.to_string(), &mut bovines);
 
             println!("Bulls: {}, Cows: {}.", bovines.bull_count(), bovines.cow_count())
         }

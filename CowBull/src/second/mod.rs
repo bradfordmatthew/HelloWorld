@@ -1,5 +1,5 @@
 use gamelib;
-use std::boxed;
+//use std::boxed;
 //Print for any actinator. Everything that is not enviroment or object will be actinator
 //and have some sort of action and name in common.
 fn print_actinator<T: gamelib::actinator::Actinator<'static>>(t: &T) {
@@ -11,8 +11,8 @@ pub fn game_without_a_name () -> bool {
     let mut     human2: gamelib::humanoid::Humanoid = gamelib::actinator::Actinator::new("test doode!");
     let         human1                              = gamelib::humanoid::Humanoid::new("My names booger!");
     let         beast:  gamelib::beast::Beast       = gamelib::actinator::Actinator::new("The Beast!");
-    let         weap1                               = gamelib::object::Weapon::new("The Blade of blades", 28);
-    let         weap2: gamelib::object::Weapon      = gamelib::object::Weapon::new("weapon 2", 1000);
+    let         weap1                               = gamelib::weapon::Weapon::new("The Blade of blades", 28);
+    let         weap2: gamelib::weapon::Weapon      = gamelib::weapon::Weapon::new("weapon 2", 1000);
     //how about a vec dependent on the actinator implementation of the class...
     //vec!{&beast as &gamelib::actinator::Actinator, &human2 as &gamelib::actinator::Actinator};
     //using as to cast from one struct type to another did not work...will find another way to do this...

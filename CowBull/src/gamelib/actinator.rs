@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 //trait seem nice, but I cannot seem to get them to work from a library. Methods from a trait
 //are never in scope when delcared in library...
 pub trait Actinator<'a> {
@@ -6,8 +7,9 @@ pub trait Actinator<'a> {
 
     fn name(&self) -> &'a str;
 
-    fn action(&self)-> &'a str {
-        "default stuff from actinator"
+    fn action(&self)-> Cow<'a, str> {
+        let some_string: String = format!("Default actinator action for {}.", self.name()).to_string();
+        return Cow::Owned(some_string);
     }
     /*
     fn move(&self);
