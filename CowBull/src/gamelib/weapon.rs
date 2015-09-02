@@ -28,13 +28,13 @@ impl<'a> Weapon<'a> {
         }
     }
 
-    fn get_parent_mut(&'a mut self) -> &'a mut object::GameObject {
-        &mut self.parent
-    }
+    //fn get_parent_mut(&'a mut self) -> &'a mut object::GameObject {
+    //    &mut self.parent
+    //}
 
-    pub fn name(&'a self) -> &'a str {
-        self.parent.name
-    }
+    //pub fn name(&'a self) -> &'a str {
+    //    self.parent.name
+    //}
 }
 
 #[test]

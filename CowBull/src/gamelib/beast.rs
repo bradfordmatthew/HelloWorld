@@ -1,4 +1,3 @@
-use std::str;
 use std::borrow::Cow;
 use gamelib::actinator;
 //beast
@@ -7,9 +6,9 @@ pub struct Beast<'a> {
 }
 
 impl<'a> Beast<'a> {
-    fn new (name: &'a str) -> Beast<'a> {
-        Beast { name: name }
-    }
+    //fn new (name: &'a str) -> Beast<'a> {
+    //    Beast { name: name }
+    //}
 }
 
 impl<'a> actinator::Actinator<'a> for Beast<'a> {

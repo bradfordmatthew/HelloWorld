@@ -1,4 +1,6 @@
 use gamelib;
+use worldlib;
+
 //use std::boxed;
 //Print for any actinator. Everything that is not enviroment or object will be actinator
 //and have some sort of action and name in common.
@@ -37,6 +39,7 @@ pub fn game_without_a_name () -> bool {
     }
     */
     println!("{} has {} items in thier pack.", human2.name, human2.pack.len());
+    worldlib::world::World::draw_world();
 
     //let obj = human2.remove_from_pack().name();
 
