@@ -1,9 +1,16 @@
 use std::io;
+
+extern crate sdl2;
+
 mod moon;
 mod cowlib;
+mod draw;
 mod gamelib;
+mod JUT;
 mod second;
 mod worldlib;
+mod views;
+
 
 //cowbull
 fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
@@ -25,9 +32,11 @@ fn chase_the_herd (guess: &str, number: String, bovines: &mut cowlib::TheHerd) {
     }
 }
 
-fn main() {
-    let mut stdin = io::stdin();
-    let number = moon::random_num(1000, 10000);
+fn get_random_number () -> String {
+    moon::random_num(1000, 10000)
+}
+
+fn intro () {
     println!("-------------------------------------------");
     println!("\t     Welcome to the game cow bull!!!\r\n
     {}\r\n {}\r\n {}\r\n {}\r\n {}\r"
@@ -39,7 +48,12 @@ fn main() {
     );
     println!("___________________________________________");
     println!("Please enter 4 numerical characters!");
+}
 
+fn main() {
+    let mut stdin = io::stdin();
+    let mut number = get_random_number();
+    intro();
     loop {
         let guess = &mut String::new();
         stdin.read_line(guess);//TODO: How to turn off this warning...
@@ -48,19 +62,34 @@ fn main() {
         if guess_trim == "exit"{
             break;
         }
-
+        else if guess_trim == "restart" {
+            number = get_random_number();
+            intro();
+            continue;
+        }
         if guess_trim != "doode!" {
             if guess_trim == number {
-                println!("You win!!!!! You guessed: {}", number);
-                std::thread::sleep_ms(3000);
-                break;
+                println!("You win!!!!! You guessed: {}\r\n Play again? (Y/N)", number);
+                let cont = &mut String::new();
+                stdin.read_line(cont);
+                let play_again = cont.trim();
+
+                if(play_again == "Y" || play_again == "y" || play_again == "yes") {
+                    number = get_random_number();
+                    intro();
+                    continue;
+                }
+                else {
+                    std::thread::sleep_ms(3000);
+                    break;
+                }
             }
 
             if guess_trim.len() != 4 {
                 println!("Please enter a 4 digit numerical string.");
                 continue;
             }
-            
+
             //test and see if this uploads :)
             let mut bovines = cowlib::TheHerd::new();
 
@@ -70,10 +99,9 @@ fn main() {
         }
         else {
             //individual game loops and a governing loop? Is that a thing?
-            if second::game_without_a_name() {
-                println!("Woo you played the other game and won!");
-                break;
-            }
+             draw::spawn("blah blah nameless game.", |phi| {
+                Box::new(::views::ShipView::new(phi))
+                });
         }
     }
 }
